@@ -4,9 +4,6 @@ import com.food.ordering.system.domain.entity.BaseEntity;
 import com.food.ordering.system.domain.valueObject.Money;
 import com.food.ordering.system.domain.valueObject.OrderId;
 import com.food.ordering.system.order.service.domain.valueObject.OrderItemId;
-import com.food.ordering.system.order.service.domain.valueObject.TrackingId;
-
-import java.util.UUID;
 
 public class OrderItem extends BaseEntity<OrderItemId> {
     private OrderId orderId;
