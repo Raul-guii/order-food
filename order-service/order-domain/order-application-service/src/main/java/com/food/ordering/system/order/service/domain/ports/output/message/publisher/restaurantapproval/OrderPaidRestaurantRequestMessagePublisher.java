@@ -4,4 +4,5 @@ import com.food.ordering.system.domain.event.publisher.DomainEventPubliher;
 import com.food.ordering.system.order.service.domain.event.OrderPaidEvent;
 
 public interface OrderPaidRestaurantRequestMessagePublisher extends DomainEventPubliher<OrderPaidEvent> {
+
 }
