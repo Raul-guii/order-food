@@ -9,6 +9,9 @@
 
     <artifactId>order-service</artifactId>
     <packaging>pom</packaging>
+    <modules>
+        <module>order-ai</module>
+    </modules>
 
     <properties>
      </properties>
