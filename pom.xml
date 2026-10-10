@@ -27,7 +27,9 @@
         <module>order-service/order-domain/order-domain-core</module>
         <module>common</module>
         <module>infrastructure</module>
+        <module>infrastructure/kafka</module>
         <module>common/common-application</module>
+        <module>customer-service</module>
     </modules>
 
     <properties>
@@ -121,6 +123,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-logging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>me.paulschwarz</groupId>
+            <artifactId>spring-dotenv</artifactId>
+            <version>4.0.0</version>
         </dependency>
     </dependencies>
     <build>
