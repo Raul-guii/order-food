@@ -7,9 +7,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class AIProviderConfig {
-
-    @Bean("openaiAIChatClient")
-    ChatClient openaiAIChatClient(OpenAiChatModel openAiChatModel){
+    @Bean("orderNoteInterpreterChatClient")
+    ChatClient orderNoteInterpreterChatClient(OpenAiChatModel openAiChatModel) {
         return ChatClient.builder(openAiChatModel).build();
     }
 }
