@@ -37,4 +37,6 @@ build/
 
 infrastructure/docker-compose/volumes/**/**
 
-.envinfrastructure/docker-compose/cluster-id-dir/
+
+/.env
+infrastructure/docker-compose/cluster-id-dir/
