@@ -30,6 +30,4 @@ public abstract class PaymentEvent implements DomainEvent<Payment> {
         return failureMessages;
     }
 
-    public void fire() {
-    }
 }

@@ -1,5 +1,6 @@
 package com.food.ordering.system.order.service.domain;
 
+import com.food.ordering.system.domain.valueobject.OrderPreferences;
 import com.food.ordering.system.order.service.domain.dto.create.CreateOrderCommand;
 import com.food.ordering.system.order.service.domain.entity.Customer;
 import com.food.ordering.system.order.service.domain.entity.Order;
@@ -44,25 +45,31 @@ public class OrderCreateHelper {
     }
 
     @Transactional
-    public OrderCreatedEvent persistOrder(CreateOrderCommand createOrderCommand){
+    public OrderCreatedEvent persistOrder(CreateOrderCommand createOrderCommand) {
         checkCustomer(createOrderCommand.getCustomerId());
         Restaurant restaurant = checkRestaurant(createOrderCommand);
         Order order = orderDataMapper.createOrderCommandToOrder(createOrderCommand);
-        OrderCreatedEvent orderCreatedEvent = orderDomainService.validateAndInitiateOrder(order, restaurant);
+        updateOrderPreferences(createOrderCommand, order);
+        OrderCreatedEvent orderCreatedEvent = orderDomainService.validateAndInitiateOrder(order, restaurant,
+                orderCreatedEventDomainEventPublisher);
         saveOrder(order);
         log.info("Order is created with id: {}", orderCreatedEvent.getOrder().getId().getValue());
         return orderCreatedEvent;
     }
 
-    private Restaurant checkRestaurant(CreateOrderCommand createOrderCommand) {
-        Restaurant restaurant = orderDataMapper.createOrderCommandToRestaurant(createOrderCommand);
-        Optional<Restaurant> optionalRestaurant = restaurantRepository.findRestaurantInformation(restaurant);
-        if (optionalRestaurant.isEmpty()) {
-            log.warn("Could not find restaurant with restaurant id: {}", createOrderCommand.getRestaurantId());
-            throw new OrderDomainException("Could not find restaurant with restaurant id: " +
-                    createOrderCommand.getRestaurantId());
+    private void updateOrderPreferences(CreateOrderCommand createOrderCommand, Order order) {
+        try {
+            String orderNotes = createOrderCommand.getOrderNotes();
+            if (orderNotes == null || orderNotes.isEmpty()) {
+                order.updateOrderPreferences(OrderPreferences.builder().build());
+                return;
+            }
+            OrderPreferences orderPreferences = orderNoteInterpreter.interpret(orderNotes);
+            order.updateOrderPreferences(orderPreferences);
+        } catch (Exception e) {
+            log.warn("Encountered error in AI Order Note Interpreter. Skipping order notes!");
+            order.updateOrderPreferences(OrderPreferences.builder().build());
         }
-        return optionalRestaurant.get();
     }
 
     private void checkCustomer(UUID customerId) {
