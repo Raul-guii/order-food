@@ -9,7 +9,7 @@ import java.util.function.BiConsumer;
 
 @Slf4j
 @Component
-public class OrderKafkaMessageHelper {
+public class KafkaMessageHelper {
 
     public <T> BiConsumer<SendResult<String, T>, Throwable>
     getKafkaCallback(String responseTopicName, T requestAvroModel, String orderId, String requestAvroModelName) {
