@@ -4,7 +4,7 @@ import com.food.ordering.system.domain.valueobject.CustomerId;
 import com.food.ordering.system.domain.valueobject.Money;
 import com.food.ordering.system.payment.service.dataaccess.credithistory.entity.CreditHistoryEntity;
 import com.food.ordering.system.payment.service.domain.entity.CreditHistory;
-import com.food.ordering.system.payment.service.domain.valueobject.CreditHistoryId;
+import com.food.ordering.system.payment.service.domain.valueObject.CreditHistoryId;
 import org.springframework.stereotype.Component;
 
 @Component
