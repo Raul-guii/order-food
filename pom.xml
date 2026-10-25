@@ -29,8 +29,11 @@
         <module>infrastructure</module>
         <module>infrastructure/kafka</module>
         <module>common/common-application</module>
+        <module>common/common-dataaccess</module>
         <module>customer-service</module>
         <module>payment-service</module>
+        <module>restaurant-service</module>
+        <module>restaurant-service/restaurant-domain</module>
     </modules>
 
     <properties>
@@ -92,6 +95,26 @@
             </dependency>
             <dependency>
                 <groupId>com.food.ordering.system</groupId>
+                <artifactId>restaurant-domain-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.food.ordering.system</groupId>
+                <artifactId>restaurant-application-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.food.ordering.system</groupId>
+                <artifactId>restaurant-dataaccess</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.food.ordering.system</groupId>
+                <artifactId>restaurant-messaging</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.food.ordering.system</groupId>
                 <artifactId>order-ai</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -103,6 +126,11 @@
             <dependency>
                 <groupId>com.food.ordering.system</groupId>
                 <artifactId>common-application</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.food.ordering.system</groupId>
+                <artifactId>common-dataaccess</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
