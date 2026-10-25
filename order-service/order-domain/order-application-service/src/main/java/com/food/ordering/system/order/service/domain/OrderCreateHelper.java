@@ -8,6 +8,8 @@ import com.food.ordering.system.order.service.domain.entity.Restaurant;
 import com.food.ordering.system.order.service.domain.event.OrderCreatedEvent;
 import com.food.ordering.system.order.service.domain.exception.OrderDomainException;
 import com.food.ordering.system.order.service.domain.mapper.OrderDataMapper;
+import com.food.ordering.system.order.service.domain.ports.output.ai.order.noteinterpreter.OrderNoteInterpreter;
+import com.food.ordering.system.order.service.domain.ports.output.message.publisher.payment.OrderCreatedPaymentRequestMessagePublisher;
 import com.food.ordering.system.order.service.domain.ports.output.repository.CustomerRepository;
 import com.food.ordering.system.order.service.domain.ports.output.repository.OrderRepository;
 import com.food.ordering.system.order.service.domain.ports.output.repository.RestaurantRepository;
@@ -32,16 +34,23 @@ public class OrderCreateHelper {
 
     private final OrderDataMapper orderDataMapper;
 
+    private final OrderCreatedPaymentRequestMessagePublisher orderCreatedEventDomainEventPublisher;
+
+    private final OrderNoteInterpreter orderNoteInterpreter;
+
     public OrderCreateHelper(OrderDomainService orderDomainService,
                              OrderRepository orderRepository,
                              CustomerRepository customerRepository,
                              RestaurantRepository restaurantRepository,
-                             OrderDataMapper orderDataMapper) {
+                             OrderDataMapper orderDataMapper,
+                             OrderCreatedPaymentRequestMessagePublisher orderCreatedEventDomainEventPublisher, OrderNoteInterpreter orderNoteInterpreter) {
         this.orderDomainService = orderDomainService;
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;
         this.restaurantRepository = restaurantRepository;
         this.orderDataMapper = orderDataMapper;
+        this.orderCreatedEventDomainEventPublisher = orderCreatedEventDomainEventPublisher;
+        this.orderNoteInterpreter = orderNoteInterpreter;
     }
 
     @Transactional
@@ -55,6 +64,17 @@ public class OrderCreateHelper {
         saveOrder(order);
         log.info("Order is created with id: {}", orderCreatedEvent.getOrder().getId().getValue());
         return orderCreatedEvent;
+    }
+
+    private Restaurant checkRestaurant(CreateOrderCommand createOrderCommand) {
+        Restaurant restaurant = orderDataMapper.createOrderCommandToRestaurant(createOrderCommand);
+        Optional<Restaurant> optionalRestaurant = restaurantRepository.findRestaurantInformation(restaurant);
+        if (optionalRestaurant.isEmpty()) {
+            log.warn("Could not find restaurant with restaurant id: {}", createOrderCommand.getRestaurantId());
+            throw new OrderDomainException("Could not find restaurant with restaurant id: " +
+                    createOrderCommand.getRestaurantId());
+        }
+        return optionalRestaurant.get();
     }
 
     private void updateOrderPreferences(CreateOrderCommand createOrderCommand, Order order) {

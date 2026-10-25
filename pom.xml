@@ -33,7 +33,6 @@
         <module>customer-service</module>
         <module>payment-service</module>
         <module>restaurant-service</module>
-        <module>restaurant-service/restaurant-domain</module>
         <module>infrastructure/saga</module>
     </modules>
 
