@@ -1,6 +1,5 @@
 package com.food.ordering.system.order.service.domain;
 
-import com.food.ordering.system.domain.valueobject.OrderPreferences;
 import com.food.ordering.system.order.service.domain.dto.create.CreateOrderCommand;
 import com.food.ordering.system.order.service.domain.entity.Customer;
 import com.food.ordering.system.order.service.domain.entity.Order;
@@ -8,8 +7,6 @@ import com.food.ordering.system.order.service.domain.entity.Restaurant;
 import com.food.ordering.system.order.service.domain.event.OrderCreatedEvent;
 import com.food.ordering.system.order.service.domain.exception.OrderDomainException;
 import com.food.ordering.system.order.service.domain.mapper.OrderDataMapper;
-import com.food.ordering.system.order.service.domain.ports.output.ai.order.noteinterpreter.OrderNoteInterpreter;
-import com.food.ordering.system.order.service.domain.ports.output.message.publisher.payment.OrderCreatedPaymentRequestMessagePublisher;
 import com.food.ordering.system.order.service.domain.ports.output.repository.CustomerRepository;
 import com.food.ordering.system.order.service.domain.ports.output.repository.OrderRepository;
 import com.food.ordering.system.order.service.domain.ports.output.repository.RestaurantRepository;
@@ -34,23 +31,16 @@ public class OrderCreateHelper {
 
     private final OrderDataMapper orderDataMapper;
 
-    private final OrderCreatedPaymentRequestMessagePublisher orderCreatedEventDomainEventPublisher;
-
-    private final OrderNoteInterpreter orderNoteInterpreter;
-
     public OrderCreateHelper(OrderDomainService orderDomainService,
                              OrderRepository orderRepository,
                              CustomerRepository customerRepository,
                              RestaurantRepository restaurantRepository,
-                             OrderDataMapper orderDataMapper,
-                             OrderCreatedPaymentRequestMessagePublisher orderCreatedEventDomainEventPublisher, OrderNoteInterpreter orderNoteInterpreter) {
+                             OrderDataMapper orderDataMapper) {
         this.orderDomainService = orderDomainService;
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;
         this.restaurantRepository = restaurantRepository;
         this.orderDataMapper = orderDataMapper;
-        this.orderCreatedEventDomainEventPublisher = orderCreatedEventDomainEventPublisher;
-        this.orderNoteInterpreter = orderNoteInterpreter;
     }
 
     @Transactional
@@ -58,9 +48,7 @@ public class OrderCreateHelper {
         checkCustomer(createOrderCommand.getCustomerId());
         Restaurant restaurant = checkRestaurant(createOrderCommand);
         Order order = orderDataMapper.createOrderCommandToOrder(createOrderCommand);
-        updateOrderPreferences(createOrderCommand, order);
-        OrderCreatedEvent orderCreatedEvent = orderDomainService.validateAndInitiateOrder(order, restaurant,
-                orderCreatedEventDomainEventPublisher);
+        OrderCreatedEvent orderCreatedEvent = orderDomainService.validateAndInitiateOrder(order, restaurant);
         saveOrder(order);
         log.info("Order is created with id: {}", orderCreatedEvent.getOrder().getId().getValue());
         return orderCreatedEvent;
@@ -77,36 +65,21 @@ public class OrderCreateHelper {
         return optionalRestaurant.get();
     }
 
-    private void updateOrderPreferences(CreateOrderCommand createOrderCommand, Order order) {
-        try {
-            String orderNotes = createOrderCommand.getOrderNotes();
-            if (orderNotes == null || orderNotes.isEmpty()) {
-                order.updateOrderPreferences(OrderPreferences.builder().build());
-                return;
-            }
-            OrderPreferences orderPreferences = orderNoteInterpreter.interpret(orderNotes);
-            order.updateOrderPreferences(orderPreferences);
-        } catch (Exception e) {
-            log.warn("Encountered error in AI Order Note Interpreter. Skipping order notes!");
-            order.updateOrderPreferences(OrderPreferences.builder().build());
-        }
-    }
-
     private void checkCustomer(UUID customerId) {
         Optional<Customer> customer = customerRepository.findCustomer(customerId);
-        if (customer.isEmpty()){
+        if (customer.isEmpty()) {
             log.warn("Could not find customer with customer id: {}", customerId);
-            throw new OrderDomainException("Could not find customer with customer id: {}" + customer);
+            throw new OrderDomainException("Could not find customer with customer id: " + customer);
         }
     }
 
-    private Order saveOrder(Order order){
+    private Order saveOrder(Order order) {
         Order orderResult = orderRepository.save(order);
-        if (orderResult == null){
+        if (orderResult == null) {
+            log.error("Could not save order!");
             throw new OrderDomainException("Could not save order!");
         }
-        log.info("Order is saved with id {}", orderResult.getId().getValue());
+        log.info("Order is saved with id: {}", orderResult.getId().getValue());
         return orderResult;
     }
-
 }
