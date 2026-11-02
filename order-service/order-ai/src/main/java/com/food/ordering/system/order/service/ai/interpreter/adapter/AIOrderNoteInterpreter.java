@@ -1,7 +1,7 @@
 package com.food.ordering.system.order.service.ai.interpreter.adapter;
 
 
-import com.food.ordering.system.domain.valueobject.OrderPreferences;
+import com.food.ordering.system.order.service.domain.valueobject.OrderPreferences;
 import com.food.ordering.system.order.service.ai.exception.AIOrderNoteInterpreterException;
 import com.food.ordering.system.order.service.domain.ports.output.ai.order.noteinterpreter.OrderNoteInterpreter;
 import lombok.extern.slf4j.Slf4j;

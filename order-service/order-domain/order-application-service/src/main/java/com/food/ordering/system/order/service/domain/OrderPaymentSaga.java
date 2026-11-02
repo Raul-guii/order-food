@@ -1,8 +1,8 @@
 package com.food.ordering.system.order.service.domain;
 
-import com.food.ordering.system.domain.valueobject.OrderId;
-import com.food.ordering.system.domain.valueobject.OrderStatus;
-import com.food.ordering.system.domain.valueobject.PaymentStatus;
+import com.food.ordering.system.order.service.domain.valueobject.OrderId;
+import com.food.ordering.system.order.service.domain.valueobject.OrderStatus;
+import com.food.ordering.system.order.service.domain.valueobject.PaymentStatus;
 import com.food.ordering.system.order.service.domain.dto.message.PaymentResponse;
 import com.food.ordering.system.order.service.domain.entity.Order;
 import com.food.ordering.system.order.service.domain.event.OrderPaidEvent;
@@ -26,7 +26,7 @@ import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.food.ordering.system.domain.DomainConstants.UTC;
+import static com.food.ordering.system.order.service.domain.DomainConstants.UTC;
 
 @Slf4j
 @Component

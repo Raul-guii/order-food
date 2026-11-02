@@ -1,7 +1,7 @@
 package com.food.ordering.system.order.service.dataaccess.order.entity;
 
-import com.food.ordering.system.domain.valueobject.OrderPreferences;
-import com.food.ordering.system.domain.valueobject.OrderStatus;
+import com.food.ordering.system.order.service.domain.valueobject.OrderPreferences;
+import com.food.ordering.system.order.service.domain.valueobject.OrderStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
