@@ -38,15 +38,13 @@ public class KafkaMessageHelper {
                 RecordMetadata metadata = result.getRecordMetadata();
                 log.info("Received successful response from Kafka for order id: {}" +
                                 " Topic: {} Partition: {} Offset: {} Timestamp: {}",
-                        orderId,
-                        metadata.topic(),
-                        metadata.partition(),
-                        metadata.offset(),
-                        metadata.timestamp());
+                        orderId, metadata.topic(), metadata.partition(),
+                        metadata.offset(), metadata.timestamp());
                 outboxCallback.accept(outboxMessage, OutboxStatus.COMPLETED);
             } else {
                 log.error("Error while sending {} with message: {} and outbox type: {} to topic {}",
-                        avroModelName, avroModel.toString(), outboxMessage.getClass().getName(), responseTopicName, ex);
+                        avroModelName, avroModel.toString(),
+                        outboxMessage.getClass().getName(), responseTopicName, ex);
                 outboxCallback.accept(outboxMessage, OutboxStatus.FAILED);
             }
         };
