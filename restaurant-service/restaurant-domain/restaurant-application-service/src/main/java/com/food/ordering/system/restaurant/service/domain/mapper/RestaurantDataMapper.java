@@ -1,9 +1,9 @@
 package com.food.ordering.system.restaurant.service.domain.mapper;
 
-import com.food.ordering.system.customer.service.order.service.domain.valueobject.Money;
-import com.food.ordering.system.customer.service.order.service.domain.valueobject.OrderId;
-import com.food.ordering.system.customer.service.order.service.domain.valueobject.OrderStatus;
-import com.food.ordering.system.customer.service.order.service.domain.valueobject.RestaurantId;
+import com.food.ordering.system.order.service.domain.valueobject.Money;
+import com.food.ordering.system.order.service.domain.valueobject.OrderId;
+import com.food.ordering.system.order.service.domain.valueobject.OrderStatus;
+import com.food.ordering.system.order.service.domain.valueobject.RestaurantId;
 import com.food.ordering.system.restaurant.service.domain.dto.RestaurantApprovalRequest;
 import com.food.ordering.system.restaurant.service.domain.entity.OrderDetail;
 import com.food.ordering.system.restaurant.service.domain.entity.Product;

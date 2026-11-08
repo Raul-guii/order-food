@@ -1,7 +1,7 @@
 package com.food.ordering.system.restaurant.service.domain.outbox.scheduler;
 
-import com.food.ordering.system.customer.service.outbox.OutboxScheduler;
-import com.food.ordering.system.customer.service.outbox.OutboxStatus;
+import com.food.ordering.system.outbox.OutboxScheduler;
+import com.food.ordering.system.outbox.OutboxStatus;
 import com.food.ordering.system.restaurant.service.domain.outbox.model.OrderOutboxMessage;
 import com.food.ordering.system.restaurant.service.domain.ports.output.message.publisher.RestaurantApprovalResponseMessagePublisher;
 import lombok.extern.slf4j.Slf4j;

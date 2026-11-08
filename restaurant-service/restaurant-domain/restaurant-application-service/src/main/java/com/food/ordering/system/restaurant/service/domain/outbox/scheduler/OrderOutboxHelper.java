@@ -2,8 +2,8 @@ package com.food.ordering.system.restaurant.service.domain.outbox.scheduler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.food.ordering.system.customer.service.order.service.domain.valueobject.OrderApprovalStatus;
-import com.food.ordering.system.customer.service.outbox.OutboxStatus;
+import com.food.ordering.system.order.service.domain.valueobject.OrderApprovalStatus;
+import com.food.ordering.system.outbox.OutboxStatus;
 import com.food.ordering.system.restaurant.service.domain.exception.RestaurantDomainException;
 import com.food.ordering.system.restaurant.service.domain.outbox.model.OrderEventPayload;
 import com.food.ordering.system.restaurant.service.domain.outbox.model.OrderOutboxMessage;
@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.food.ordering.system.customer.service.order.service.domain.DomainConstants.UTC;
-import static com.food.ordering.system.customer.service.saga.order.SagaConstants.ORDER_SAGA_NAME;
+import static com.food.ordering.system.order.service.domain.DomainConstants.UTC;
+import static com.food.ordering.system.saga.order.SagaConstants.ORDER_SAGA_NAME;
 
 @Slf4j
 @Component
