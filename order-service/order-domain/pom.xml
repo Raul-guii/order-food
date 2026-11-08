@@ -9,7 +9,11 @@
     </parent>
 
     <artifactId>order-domain</artifactId>
-
+    <packaging>pom</packaging>
+    <modules>
+        <module>order-application-service</module>
+        <module>order-domain-core</module>
+    </modules>
     <properties>
     </properties>
 </project>
