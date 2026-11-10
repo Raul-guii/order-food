@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Slf4j
-@SpringBootTest(classes = PaymentServiceApplication.class)
+@SpringBootTest(classes = com.food.ordering.system.customer.service.payment.service.domain.PaymentServiceApplication.class)
 public class PaymentRequestMessageListenerTest {
 
     @Autowired
