@@ -1,7 +1,7 @@
 package com.food.ordering.system.order.service.application.exception.handler;
 
-import com.food.ordering.system.customer.service.application.handler.ErrorDTO;
-import com.food.ordering.system.customer.service.application.handler.GlobalExceptionHandler;
+import com.food.ordering.system.application.handler.ErrorDTO;
+import com.food.ordering.system.application.handler.GlobalExceptionHandler;
 import com.food.ordering.system.order.service.ai.exception.AIOrderNoteInterpreterException;
 import com.food.ordering.system.order.service.domain.exception.OrderDomainException;
 import com.food.ordering.system.order.service.domain.exception.OrderNotFoundException;
