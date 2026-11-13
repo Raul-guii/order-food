@@ -21,7 +21,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres?currentSchema=restaurant&binaryTransfer=true&reWriteBatchedInserts=true&stringtype=unspecified
     username: postgres
-    password: paty1234
+    password: admin
     driver-class-name: org.postgresql.Driver
     platform: postgres
     schema: classpath:init-schema.sql
