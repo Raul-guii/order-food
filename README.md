@@ -40,15 +40,17 @@ Each service follows Hexagonal Architecture: the domain (aggregates, entities, v
 
 ## Tech stack
 
-Java 25 · Spring Boot 3.5.8 · Spring Data JPA · Apache Kafka (KRaft) with Avro and Schema Registry · PostgreSQL · Docker · Maven (multi-module) · Lombok
+Java 25 · Spring Boot 3.5.8 · Spring Data JPA · Spring AI · Apache Kafka (KRaft) with Avro and Schema Registry · PostgreSQL · Docker · Maven (multi-module) · Lombok
 
 ## Getting started
 
 ### Prerequisites
 
-- JDK (version used by the project) and Maven
+- JDK 25 and Maven. Set `JAVA_HOME` to point to the JDK and check it with `mvn -v`.
 - Docker (for Kafka and Schema Registry)
 - PostgreSQL running locally on port 5432. Check the credentials in each service's `application.yml`.
+- An IDE with annotation processing enabled and the Lombok plugin installed, in case of compile-time errors with Lombok annotations.
+- The Order Service uses Spring AI. Set the `OPENAI_API_KEY` environment variable (OpenAI is the default provider), or set `order.ai.provider` to `ollama` and run a local Ollama on port 11434 with the `mistral:7b` model.
 
 ### Build
 
