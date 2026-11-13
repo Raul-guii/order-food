@@ -1,4 +1,4 @@
-package com.food.ordering.system.customer.service.application.rest;
+package com.food.ordering.system.application.rest;
 
 import com.food.ordering.system.customer.service.domain.create.CreateCustomerCommand;
 import com.food.ordering.system.customer.service.domain.create.CreateCustomerResponse;
