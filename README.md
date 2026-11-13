@@ -73,7 +73,7 @@ On PowerShell, wrap the property in quotes: `"-Dspring-boot.build-image.skip=tru
 2. Create an order: `POST /orders` on the order service. The response contains a tracking id.
 3. Poll `GET /orders/{trackingId}`. The status moves from `PAID` to `APPROVED` after the outbox schedulers publish (about 10 seconds per step by default).
 
-Default ports: <customer 8184, order 8181, payment 8182, restaurant 8183. Confirm in application.yml>
+Default ports: customer 8184, order 8181, payment 8182, restaurant 8183.
 
 ## Known limitations
 
