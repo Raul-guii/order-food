@@ -1,4 +1,4 @@
-package com.food.ordering.system.customer.service.application.handler;
+package com.food.ordering.system.application.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
